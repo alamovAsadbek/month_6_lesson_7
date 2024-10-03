@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.template.loader import render_to_string
 from django.urls import reverse_lazy, reverse
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
@@ -13,6 +14,10 @@ def send_email_verification(request):
     domain = request.get_host()
     verification_url = reverse('verify-email', kwargs={'uidb64': uid, 'token': token})
     full_url = f'http://{domain}/{verification_url}'
+    text_content = render_to_string(
+        'components/verify_email/verify_email.html',
+        {'full_url': full_url}
+    )
 
 
 def home_view(request):
