@@ -1,3 +1,4 @@
+from django.core.mail import EmailMultiAlternatives
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy, reverse
@@ -8,15 +9,19 @@ from pages.form import RegisterForm
 from pages.token import email_token_generator
 
 
-def send_email_verification(request):
+def send_email_verification(request, user):
     token = email_token_generator.make_token(request.user)
     uid = urlsafe_base64_encode(force_bytes(request.user.pk))
     domain = request.get_host()
     verification_url = reverse('verify-email', kwargs={'uidb64': uid, 'token': token})
     full_url = f'http://{domain}/{verification_url}'
+
     text_content = render_to_string(
         'components/verify_email/verify_email.html',
         {'full_url': full_url}
+    )
+
+    message = EmailMultiAlternatives(
     )
 
 
