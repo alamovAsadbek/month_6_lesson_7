@@ -59,4 +59,4 @@ def register_view(request):
 
 
 def logout_view(request):
-    pass
+    return redirect(reverse_lazy('login'))
