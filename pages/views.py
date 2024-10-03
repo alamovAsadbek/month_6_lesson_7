@@ -62,12 +62,12 @@ def login_view(request):
             password = form.cleaned_data['password']
             user = authenticate(request=request, email=email, password=password)
             if user is not None:
-                if user.is_active:
-                    login(request, user)
-                    return redirect(reverse_lazy('home'))
-                else:
-                    return render(request, 'user-login.html',
-                                  {'error': 'Account not activated. Please check your email for verification.'})
+                login(request, user)
+                return redirect(reverse_lazy('home'))
+            else:
+                return render(request, 'user-login.html',
+                              {'error': 'Account not activated. Please check your email for verification.'})
+
     else:
         return render(request, 'user-login.html')
 
