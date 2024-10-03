@@ -1,3 +1,4 @@
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.core.mail import EmailMultiAlternatives
 from django.shortcuts import render, redirect
@@ -7,7 +8,7 @@ from django.utils.encoding import force_bytes, force_str
 from django.utils.http import urlsafe_base64_encode
 
 from config.settings import EMAIL_HOST_USER
-from pages.form import RegisterForm
+from pages.form import RegisterForm, LoginForm
 from pages.token import email_token_generator
 
 
@@ -54,7 +55,21 @@ def home_view(request):
 
 
 def login_view(request):
-    return render(request, 'user-login.html')
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    return redirect(reverse_lazy('home'))
+                else:
+                    return render(request, 'user-login.html',
+                                  {'error': 'Account not activated. Please check your email for verification.'})
+    else:
+        return render(request, 'user-login.html')
 
 
 def register_view(request):
