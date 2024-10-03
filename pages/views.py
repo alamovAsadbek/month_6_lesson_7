@@ -2,10 +2,11 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 
 from pages.form import RegisterForm
+from pages.token import email_token_generator
 
 
 def send_email_verification(request):
-    pass
+    token = email_token_generator.make_token(request.user)
 
 
 def home_view(request):
