@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
 from django.core.mail import EmailMultiAlternatives
 from django.shortcuts import render, redirect
@@ -60,7 +60,10 @@ def login_view(request):
         if form.is_valid():
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
-            user = authenticate(request=request, email=email, password=password)
+            try:
+                user = User.objects.get(email=email, password=password)
+            except User.DoesNotExist:
+                user = None
             if user is not None:
                 login(request, user)
                 return redirect(reverse_lazy('home'))
