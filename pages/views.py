@@ -6,8 +6,8 @@ def home_view(request):
 
 
 def login_view(request):
-    pass
+    return render(request, 'user-login.html')
 
 
 def register_view(request):
-    pass
+    return render(request, 'user-register.html')
