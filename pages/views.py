@@ -4,6 +4,10 @@ from django.urls import reverse_lazy
 from pages.form import RegisterForm
 
 
+def send_email_verification(request):
+    pass
+
+
 def home_view(request):
     return render(request, 'index.html')
 
