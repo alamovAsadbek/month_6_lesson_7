@@ -19,7 +19,7 @@ def send_email_verification(request, user):
 
     text_content = render_to_string(
         'components/verify_email/verify_email.html',
-        {'full_url': full_url}
+        {'user': user, 'full_url': full_url}
     )
 
     message = EmailMultiAlternatives(
