@@ -34,7 +34,7 @@
                     <div class="container">
                         <h1 class="text-center title-page">Log In</h1>
                         <div class="login-form">
-                            <form id="customer-form" action="#" method="post">
+                            <form id="customer-form" action="{% url 'login' %}" method="post">
                                 {% csrf_token %}
                                 <div>
                                     <input type="hidden" name="back" value="my-account">
