@@ -15,7 +15,7 @@ def send_email_verification(request, user):
     uid = urlsafe_base64_encode(force_bytes(request.user.pk))
     domain = request.get_host()
     verification_url = reverse('verify-email', kwargs={'uidb64': uid, 'token': token})
-    full_url = f'http://{domain}{verification_url}'
+    full_url = f'https://{domain}{verification_url}'
 
     text_content = render_to_string(
         'components/verify_email/verify_email.html',
