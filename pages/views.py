@@ -1,4 +1,4 @@
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from django.core.mail import EmailMultiAlternatives
 from django.shortcuts import render, redirect
@@ -58,12 +58,9 @@ def login_view(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
-            email = form.cleaned_data['email']
+            username = form.cleaned_data['username']
             password = form.cleaned_data['password']
-            try:
-                user = User.objects.get(email=email, password=password)
-            except User.DoesNotExist:
-                user = None
+            user = authenticate(request=request, username=username, password=password)
             if user is not None:
                 login(request, user)
                 return redirect(reverse_lazy('home'))
@@ -80,7 +77,7 @@ def register_view(request):
         form = RegisterForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            user.set_password(form.cleaned_data['password'])
+            user.set_password(form.cleaned_data['password1'])
             user.is_active = False
             user.save()
             send_email_verification(request, user)
