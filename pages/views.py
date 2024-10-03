@@ -10,6 +10,8 @@ from pages.token import email_token_generator
 def send_email_verification(request):
     token = email_token_generator.make_token(request.user)
     uid = urlsafe_base64_encode(force_bytes(request.user.pk))
+    domain = request.get_host()
+    full_url = f"http://{domain}/verify-email/{uid}/{token}"
 
 
 def home_view(request):
