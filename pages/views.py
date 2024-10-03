@@ -5,6 +5,7 @@ from django.urls import reverse_lazy, reverse
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 
+from config.settings import EMAIL_HOST_USER
 from pages.form import RegisterForm
 from pages.token import email_token_generator
 
@@ -22,7 +23,14 @@ def send_email_verification(request, user):
     )
 
     message = EmailMultiAlternatives(
+        subject='Verify your email',
+        body=text_content,
+        from_email=EMAIL_HOST_USER,
+        to=[user.email]
     )
+
+    message.attach_alternative(text_content, "text/html")
+    message.send()
 
 
 def home_view(request):
