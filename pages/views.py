@@ -24,4 +24,5 @@ def register_view(request):
         else:
             errors = form.errors
             return render(request, 'user-register.html', {'errors': errors})
-    return render(request, 'user-register.html')
+    else:
+        return render(request, 'user-register.html')
