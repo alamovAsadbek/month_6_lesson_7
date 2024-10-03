@@ -113,7 +113,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'static/'
 STATICFILES_DIRS = [
-    BASE_DIR / "static",  # yoki o'z papkangiz yo'li
+    BASE_DIR / "assets",
 ]
 
 # Media files
