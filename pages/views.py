@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
 
 from pages.form import RegisterForm
 from pages.token import email_token_generator
@@ -7,6 +9,7 @@ from pages.token import email_token_generator
 
 def send_email_verification(request):
     token = email_token_generator.make_token(request.user)
+    uid = urlsafe_base64_encode(force_bytes(request.user.pk))
 
 
 def home_view(request):
