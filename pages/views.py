@@ -36,3 +36,7 @@ def register_view(request):
             return render(request, 'user-register.html', {'errors': errors})
     else:
         return render(request, 'user-register.html')
+
+
+def logout_view(request):
+    pass
