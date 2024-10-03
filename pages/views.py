@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 
@@ -11,7 +11,7 @@ def send_email_verification(request):
     token = email_token_generator.make_token(request.user)
     uid = urlsafe_base64_encode(force_bytes(request.user.pk))
     domain = request.get_host()
-    full_url = f"http://{domain}/verify-email/{uid}/{token}"
+    verification_url=reverse('verify-email', kwargs={'uidb64': uid, 'token': token})
 
 
 def home_view(request):
