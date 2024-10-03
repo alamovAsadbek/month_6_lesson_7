@@ -49,6 +49,7 @@ def register_view(request):
             user.set_password(form.cleaned_data['password'])
             user.is_active = False
             user.save()
+            send_email_verification(request, user)
             return redirect(reverse_lazy('login'))
         else:
             errors = form.errors
