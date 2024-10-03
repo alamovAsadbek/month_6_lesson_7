@@ -35,56 +35,70 @@
                     </button>
                 </form>
             </div>
-            <div class="desktop_cart">
-                <div class="blockcart block-cart cart-preview tiva-toggle">
-                    <div class="header-cart tiva-toggle-btn">
-                        <span class="cart-products-count">1</span>
-                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                    </div>
-                    <div class="dropdown-content">
-                        <div class="cart-content">
-                            <table>
-                                <tbody>
-                                <tr>
-                                    <td class="product-image">
-                                        <a href="product-detail.html">
-                                            <img src="{% static 'img/product/5.jpg' %}" alt="Product">
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <div class="product-name">
-                                            <a href="product-detail.html">Organic Strawberry Fruits</a>
-                                        </div>
-                                        <div>
-                                            2 x
-                                            <span class="product-price">£28.98</span>
-                                        </div>
-                                    </td>
-                                    <td class="action">
-                                        <a class="remove" href="#">
-                                            <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr class="total">
-                                    <td colspan="2">Total:</td>
-                                    <td>£92.96</td>
-                                </tr>
+            {% if request.user.is_authenticated %}
+                <div class="desktop_cart">
+                    <div class="blockcart block-cart cart-preview tiva-toggle">
+                        <div class="header-cart tiva-toggle-btn">
+                            <span class="cart-products-count">1</span>
+                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                        </div>
+                        <div class="dropdown-content">
+                            <div class="cart-content">
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <td class="product-image">
+                                            <a href="product-detail.html">
+                                                <img src="{% static 'img/product/5.jpg' %}" alt="Product">
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <div class="product-name">
+                                                <a href="product-detail.html">Organic Strawberry Fruits</a>
+                                            </div>
+                                            <div>
+                                                2 x
+                                                <span class="product-price">£28.98</span>
+                                            </div>
+                                        </td>
+                                        <td class="action">
+                                            <a class="remove" href="#">
+                                                <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr class="total">
+                                        <td colspan="2">Total:</td>
+                                        <td>£92.96</td>
+                                    </tr>
 
-                                <tr>
-                                    <td colspan="3" class="d-flex justify-content-center">
-                                        <div class="cart-button">
-                                            <a href="product-cart.html" title="View Cart">View Cart</a>
-                                            <a href="product-checkout.html" title="Checkout">Checkout</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                                    <tr>
+                                        <td colspan="3" class="d-flex justify-content-center">
+                                            <div class="cart-button">
+                                                <a href="product-cart.html" title="View Cart">View Cart</a>
+                                                <a href="product-checkout.html" title="Checkout">Checkout</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            {% else %}
+                <div class="blockcart block-cart cart-preview tiva-toggle">
+                    <div class="header-cart tiva-toggle-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-person-circle" viewBox="0 0 16 16">
+                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                            <path fill-rule="evenodd"
+                                  d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                        </svg>
+                    </div>
+                </div>
+
+            {% endif %}
         </div>
     </div>
 
