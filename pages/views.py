@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.urls import reverse_lazy, reverse
 from django.utils.encoding import force_bytes, force_str
-from django.utils.http import urlsafe_base64_encode
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 
 from config.settings import EMAIL_HOST_USER
 from pages.form import RegisterForm, LoginForm
@@ -14,7 +14,7 @@ from pages.token import email_token_generator
 
 def verify_email(request, uidb64, token):
     try:
-        uid = force_str(urlsafe_base64_encode(force_bytes(uidb64)))
+        uid = force_str(urlsafe_base64_decode(force_bytes(uidb64)))
         user = User.objects.get(pk=uid)
         if email_token_generator.check_token(user, token):
             user.is_active = True
