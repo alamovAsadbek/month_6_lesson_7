@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.core.mail import EmailMultiAlternatives
 from django.shortcuts import render, redirect
@@ -90,4 +90,5 @@ def register_view(request):
 
 
 def logout_view(request):
-    return redirect(reverse_lazy('login'))
+    logout(request)
+    return redirect(reverse_lazy('/'))
